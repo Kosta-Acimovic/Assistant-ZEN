@@ -1,6 +1,7 @@
 import pyttsx3  # pip install pyttsx3
 import datetime
 import speech_recognition as sr  # pip install SpeechRecognition
+import wikipedia # pip install wikipedia
 
 engine = pyttsx3.init()
 
@@ -65,7 +66,6 @@ def wishme():
 
     speak("ZEN at your service. Please tell me how can i help you")
 
-
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -84,3 +84,11 @@ def takeCommand():
 
         return "None"
     return query
+
+
+def wiki(query):
+    speak("Searching....")
+    query = query.replace("wikipedia", "")
+    result = wikipedia.summary(query, sentences=2)
+    print(result)
+    speak(result)
