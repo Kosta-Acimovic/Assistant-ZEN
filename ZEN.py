@@ -53,9 +53,6 @@ def date():
 
 def wishme():
     speak("Welcome back!")
-    time()
-    date()
-
     hour = datetime.datetime.now().hour
     if 6 <= hour < 12:
         speak("Good morning!")

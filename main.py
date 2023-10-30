@@ -1,5 +1,5 @@
 import ZEN as z
-
+import pyttsx3 as s
 
 if __name__ == "__main__":
     z.wishme()
@@ -11,3 +11,7 @@ if __name__ == "__main__":
 
         elif 'date' in query:
             z.date()
+
+        elif 'offline' in query:
+            s.speak("Goodbye")
+            quit()
