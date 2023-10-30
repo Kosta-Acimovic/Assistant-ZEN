@@ -1,0 +1,3 @@
+import ZEN
+
+ZEN.takeCommand()
