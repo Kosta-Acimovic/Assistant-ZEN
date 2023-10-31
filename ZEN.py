@@ -2,9 +2,15 @@ import pyttsx3  # pip install pyttsx3
 import datetime
 import speech_recognition as sr  # pip install SpeechRecognition
 import wikipedia # pip install wikipedia
+import smtplib
+import webbrowser as wb
+
+Lady_english="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
 
 engine = pyttsx3.init()
 
+engine.setProperty('volume',1)
+engine.setProperty('voice', Lady_english)
 
 def speak(audio):
     engine.say(audio)
@@ -86,9 +92,33 @@ def takeCommand():
     return query
 
 
-def wiki(query):
+def wiki(x):
     speak("Searching....")
-    query = query.replace("wikipedia", "")
-    result = wikipedia.summary(query, sentences=2)
-    print(result)
-    speak(result)
+    x = x.replace("wikipedia", "")
+    try:
+        result = wikipedia.summary(x, sentences=2)
+        print(result)
+        speak(result)
+    except Exception as e:
+        print(e)
+        speak("Please try again")
+
+def sendemail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('OUR EMAIL','PASSWORD FOR THAT EMAIL')
+    server.sendmail('zentestingai@gmail.com', to, content)
+    server.close()
+
+def searchchrome():
+    speak("What should i search?")
+    chromepath = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+
+    search = takeCommand().lower()
+    if search!="none":
+        wb.get(chromepath).open_new_tab(search + '.com')
+        return
+    else:
+        searchchrome()
+
